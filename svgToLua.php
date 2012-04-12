@@ -28,7 +28,7 @@ function svgToLua( $filename ){
 
 	echo "svg = {\n";
 
-	$notLast = array(false, false);
+	$notLast = array(false, false, false);
 	foreach ( $svg->g as $group ){
 
 		if ( $notLast[0] ){
@@ -48,8 +48,14 @@ function svgToLua( $filename ){
 			$type = $childNode->getName();
 			echo "shape = '$type', ";
 
+			$notLast[2] = false;
 			foreach ( $childNode->attributes() as $key => $value ){
+				if ( $notLast[2] ){
+					echo ', ';
+				}
+
 				echo "$key = '$value' "; 
+				$notLast[2] = true;
 			}
 
 			echo "}";
@@ -63,11 +69,10 @@ function svgToLua( $filename ){
 	
 
 	echo "\n}\n";
-
 }
 
 function showUsage(){
 
 	echo "\nsvgToLua.php file.svg\n";
-	exit
+	exit();
 }
