@@ -54,6 +54,7 @@ function svgToLua( $filename ){
 					echo ', ';
 				}
 
+				$key = str_replace('-', '_', $key);
 				echo "$key = '$value' "; 
 				$notLast[2] = true;
 			}
